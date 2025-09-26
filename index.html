@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fewer Network - Vote Sites</title>
+  <meta name="description" content="Mobile-first vertically stacked card links to vote sites." />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #121419;
+      --text: #e8eef2;
+      --muted: #a6b3be;
+      --accent: #32cd32; /* lime green */
+      --ring: color-mix(in oklab, var(--accent), white 20%);
+      --shadow: 0 10px 25px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+      --radius: 18px;
+      --pad: 16px;
+      --gap: 21px; /* 1.5x the previous 14px */
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f8fb;
+        --card: #ffffff;
+        --text: #0d1b2a;
+        --muted: #506070;
+        --accent: #32cd32; /* lime green */
+        --ring: color-mix(in oklab, var(--accent), white 20%);
+        --shadow: 0 10px 20px rgba(2,6,23,.08), 0 2px 6px rgba(2,6,23,.06);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 50% -200px, color-mix(in oklab, var(--accent), transparent 92%), transparent 100%), var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      min-height: 100svh; /* keeps footer at bottom */
+      max-width: 720px;
+      margin: 0 auto;
+      /* 1.5x horizontal padding, keep vertical as before */
+      padding: clamp(16px, 3vw, 28px) clamp(24px, 4.5vw, 42px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(var(--gap), 3.3vw, 30px);
+    }
+
+    header {
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      padding: 12px 2px 2px;
+      text-align: center;
+      margin-bottom: clamp(24px, 6vw, 48px); /* extra space before cards */
+    }
+
+    .logo {
+      width: clamp(56px, 14vw, 110px);
+      height: auto;
+      display: block;
+      margin: 0 auto 4px;
+    }
+
+    h1 {
+      font-size: clamp(22px, 4.5vw, 34px);
+      line-height: 1.1;
+      margin: 0;
+      letter-spacing: -0.02em;
+      text-align: center; /* center h1 */
+    }
+
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2.8vw, 16px);
+    }
+
+    .cards {
+      display: grid;
+      gap: clamp(var(--gap), 3vw, 27px); /* 1.5x inter-card spacing */
+    }
+
+    .card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      padding: clamp(14px, 2.8vw, 18px) clamp(16px, 3vw, 22px);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card), white 2%), var(--card));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      outline: none;
+      border: 1px solid color-mix(in oklab, var(--card), white 12%);
+      transition: transform .16s cubic-bezier(.2,.7,.2,1), box-shadow .16s, border-color .16s, background .16s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .title {
+      font-weight: 620;
+      font-size: clamp(16px, 3.6vw, 20px);
+      letter-spacing: -0.01em;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .chev {
+      width: 24px; height: 24px;
+      display: inline-grid; place-items: center;
+      border-radius: 12px;
+      background: color-mix(in oklab, var(--accent), transparent 85%);
+      border: 1px solid color-mix(in oklab, var(--accent), white 60%);
+    }
+
+    .card:focus-visible {
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring), transparent 70%), var(--shadow);
+      border-color: var(--ring);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.24), 0 4px 10px rgba(0,0,0,.16);
+    }
+
+    .card:active { transform: translateY(0); }
+
+    @media (min-width: 700px) {
+      .cards { gap: 30px; } /* 1.5x from 20px */
+      .card { grid-template-columns: 1fr auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+    }
+
+    footer {
+      margin-top: clamp(12px, 2vw, 16px);
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .footline { display: block; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <img class="logo" src="logo.png" alt="Fewer Network logo" />
+      <h1>Fewer Network - Vote Sites</h1>
+      <p class="lead">Click each link to vote!</p>
+    </header>
+
+    <section class="cards" aria-label="Vote site links">
+      <a class="card" href="https://example.com/1" rel="noopener" target="_blank" aria-label="Open Vote Site 1">
+        <div>
+          <div class="title">Vote Site #1</div>
+          <div class="meta">example.com/1</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/2" rel="noopener" target="_blank" aria-label="Open Vote Site 2">
+        <div>
+          <div class="title">Vote Site #2</div>
+          <div class="meta">example.com/2</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/3" rel="noopener" target="_blank" aria-label="Open Vote Site 3">
+        <div>
+          <div class="title">Vote Site #3</div>
+          <div class="meta">example.com/3</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/4" rel="noopener" target="_blank" aria-label="Open Vote Site 4">
+        <div>
+          <div class="title">Vote Site #4</div>
+          <div class="meta">example.com/4</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/5" rel="noopener" target="_blank" aria-label="Open Vote Site 5">
+        <div>
+          <div class="title">Vote Site #5</div>
+          <div class="meta">example.com/5</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/6" rel="noopener" target="_blank" aria-label="Open Vote Site 6">
+        <div>
+          <div class="title">Vote Site #6</div>
+          <div class="meta">example.com/6</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/7" rel="noopener" target="_blank" aria-label="Open Vote Site 7">
+        <div>
+          <div class="title">Vote Site #7</div>
+          <div class="meta">example.com/7</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <a class="card" href="https://example.com/8" rel="noopener" target="_blank" aria-label="Open Vote Site 8">
+        <div>
+          <div class="title">Vote Site #8</div>
+          <div class="meta">example.com/8</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+    </section>
+
+    <footer>
+      <span class="footline">Built mobile-first. Accessible. Keyboard and screen-reader friendly.</span>
+      <span class="footline">Copyright 2025 - Fewer Network - All rights reserved</span>
+    </footer>
+  </main>
+</body>
+</html>
